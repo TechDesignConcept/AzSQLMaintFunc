@@ -3,15 +3,10 @@ IndexOptimize is the SQL Server Maintenance Solution’s stored procedure for re
 IndexOptimize is supported on SQL Server 2008, SQL Server 2008 R2, SQL Server 2012, SQL Server 2014, SQL Server 2016, SQL Server 2017, 
 SQL Server 2019, SQL Server 2022, Azure SQL Database, and Azure SQL Managed Instance.
 
-REF: https://ola.hallengren.com/sql-server-index-and-statistics-maintenance.html
+REF: https://github.com/yochananrachamim/AzureSQL 
 
 This function app assumes the managed identity of the function app and has 'db_owner' permissions over the databases.
-In line with FAQ 'Which permissions are needed for the SQL Server Maintenance Solution to work?'
-IndexOptimize: EXECUTE on dbo.IndexOptimize, VIEW DEFINITION on dbo.CommandExecute, VIEW DEFINITION on dbo.CommandLog, VIEW SERVER STATE, db_owner on all target databases
-
-This function app also assumes that these stored procedures are installed onto every database.
-https://ola.hallengren.com/scripts/IndexOptimize.sql
-https://ola.hallengren.com/scripts/CommandExecute.sql
+Permissions: VIEW SERVER STATE, db_owner on all target databases
 #>
 
 # Input bindings are passed in via param block.
@@ -39,7 +34,6 @@ $AzureContext = Disable-AzContextAutosave -Scope Process
 
 # Connect to Azure with system-assigned managed identity
 $AzureContext = (Connect-AzAccount -Identity).context
-
 
 # Set and store context
 $AzureContext = Set-AzContext -Subscription $SUB_ID -Tenant $TENANT_ID
